@@ -10,11 +10,16 @@ const Card = props => {
     //side = up
     imageToShow = fImage;
   }
+
   return (
-    <div className="PlayingCard">
-      <img src={imageToShow} alt={id}/>
-    </div>
+      <img className="PlayingCard" src={imageToShow} alt={id}/>
   )
+
+  // return (
+  //   <div className="PlayingCard">
+  //     <img src={imageToShow} alt={id}/>
+  //   </div>
+  // )
 }
 
 export default Card

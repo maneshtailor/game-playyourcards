@@ -1,16 +1,6 @@
 import React, {useState} from 'react'
 import './App.css'
-import PlayingCard from './components/PlayingCard/PlayingCard'
 import BrucyBoard from './components/BrucyBoard/BrucyBoard'
-import backImg from './assets/images/back.png'
-import angular from './assets/images/angular.png'
-import css from './assets/images/css.png'
-import go from './assets/images/go.png'
-import html from './assets/images/html.png'
-import rail from './assets/images/rail.png'
-import react from './assets/images/react.png'
-import scala from './assets/images/scala.png'
-import vue from './assets/images/vue.png'
 import BankComponent from './components/Bank/BankComponent'
 
 function App() {
