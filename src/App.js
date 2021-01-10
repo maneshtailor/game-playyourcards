@@ -24,7 +24,7 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App" alig>
 
       <div>
            <img src="assets/images/codingChallengeHeader.jpg" alt="CodingChallenge" height="200"/> 
@@ -102,7 +102,7 @@ class NameForm extends React.Component {
                   card: props.card, cardIndex: props.cardIndex, 
                   brucyBoardElement: props.brucyBoardElement,
                 bankElement: props.bankElement}; //, onSubmit: props.onSubmit};
-    this.state.bankBalance = 0;
+    this.state.bankBalance = 10;
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -139,11 +139,15 @@ class NameForm extends React.Component {
         console.log("Card is Higher");
         if(this.state.selectDirection == "higher"){
           console.log("You are right! You said Higher and the card was Higher");
-          this.state.bankBalance = this.state.bankElement.current.addToBankValue(this.state.value);
+          let newBalance = parseInt(this.state.bankBalance) + parseInt(this.state.value);
+          this.state.bankElement.current.addToBankValue(this.state.value);
+          this.state.bankBalance = newBalance;
           console.log("Your bank = "+this.state.bankBalance);
         } else {
           console.log("You are wrong! You said Lower and the card was Higher");
-          this.state.bankBalance = this.state.bankElement.current.deleteFromBankValue(this.state.value);
+          let newBalance = parseInt(this.state.bankBalance) - parseInt(this.state.value);
+          this.state.bankElement.current.deleteFromBankValue(this.state.value);
+          this.state.bankBalance = newBalance;
           console.log("Your bank = "+this.state.bankBalance);
         }
       }else {
@@ -151,11 +155,15 @@ class NameForm extends React.Component {
         console.log("Card is Lower");
         if(this.state.selectDirection == "lower"){
           console.log("You are right! You said Lower and the card was Lower");
-          this.state.bankBalance = this.state.bankElement.current.addToBankValue(this.state.value);
+          let newBalance = parseInt(this.state.bankBalance) + parseInt(this.state.value);
+          this.state.bankElement.current.addToBankValue(this.state.value);
+          this.state.bankBalance = newBalance;
           console.log("Your bank = "+this.state.bankBalance);
         } else {
           console.log("You are wrong! You said Higher and the card was Lower");
-          this.state.bankBalance = this.state.bankElement.current.deleteFromBankValue(this.state.value);
+          let newBalance = parseInt(this.state.bankBalance) - parseInt(this.state.value);
+          this.state.bankElement.current.deleteFromBankValue(this.state.value);
+          this.state.bankBalance = newBalance;
           console.log("Your bank = "+this.state.bankBalance);
         }
       }
@@ -166,8 +174,12 @@ class NameForm extends React.Component {
 
       if(this.state.cardIndex == '6'){
         console.log("GAME OVER!");
-        console.log("Your final score is "+this.state.bankElement.current.getBank());
+        console.log("Your final score is "+this.state.bankBalance);
       }
+      
+
+      this.state.maxValue = this.state.bankBalance;
+      this.forceUpdate();
 
       
     }
