@@ -1,0 +1,193 @@
+import React, {useState} from 'react'
+import './App.css'
+import PlayingCard from './components/PlayingCard/PlayingCard'
+import BrucyBoard from './components/BrucyBoard/BrucyBoard'
+import backImg from './assets/images/back.png'
+import angular from './assets/images/angular.png'
+import css from './assets/images/css.png'
+import go from './assets/images/go.png'
+import html from './assets/images/html.png'
+import rail from './assets/images/rail.png'
+import react from './assets/images/react.png'
+import scala from './assets/images/scala.png'
+import vue from './assets/images/vue.png'
+
+function App() {
+  const cards = buildDeck();
+  let bank = 10;
+
+  const onSubmitClick = () => {
+    console.log('Hello in App')
+  }
+
+  
+  
+  let cardIndex = 0;
+  let card = cards[cardIndex];
+
+
+  return (
+    <div className="App">
+
+      <div>
+           <img src="assets/images/codingChallengeHeader.jpg" alt="CodingChallenge" height="200"/> 
+      </div> 
+      
+      <div className="grid-container">
+        <div className="grid-item">
+            <div>Your counters</div>
+            <div className="counter">{bank}</div>
+        </div>
+        <div className="grid-item">
+          <NameForm value="0" maxValue={bank} onSubmit={onSubmitClick()} cards={cards} card={card} cardIndex={cardIndex}></NameForm>
+          
+        </div>
+      </div>
+
+      
+
+
+
+      {/*  <PlayingCard {...card}  key={card.id} /> 
+         <BrucyBoard cards={cards} />  
+
+         */}
+
+
+    </div>
+
+
+    
+
+    
+  )
+}
+
+export default App
+
+function buildDeck() {
+  const suites = ['H', 'D', 'S', 'C']
+  const faces = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2']
+  let deck = Array(52);
+  let deckCounter = 0
+  for(let i=0; i<suites.length; i++){
+    const suite = suites[i];
+      for(let j=0; j<faces.length; j++){
+        const face = faces[j];
+        const aCard = face+""+suite;
+        let position;
+        if(face === 'A'){
+          position = 14;
+        } else if ( face === 'K'){
+          position = 13;
+        } else if ( face === 'Q'){
+          position = 12;
+        } else if ( face === 'J'){
+          position = 11;
+        } else {
+          position = parseInt(face,10);
+        }
+        deck[deckCounter] = {id: aCard, fImage: '../assets/images/'+aCard+'.jpg', face: face, position: position };
+        deckCounter++;
+        //console.log(aCard);
+      }
+  }
+  deck = deck.sort(() => Math.random() - 0.5)
+  //console.log("The Random Array")
+  //console.log(deck);
+  return deck;
+}
+
+function buildCards() {
+  let id = 0
+  const images = {angular, css, go, html, rail, react, scala, vue}
+  const cards = Object.keys(images).reduce((result, item) => {
+    const getCard = () => ({
+      id: id++,
+      type: item,
+      backImg,
+      frontImg: images[item],
+      flipped: false,
+    })
+    return [...result, getCard(), getCard()]
+  }, [])
+  return suffle(cards)
+}
+
+function suffle(arr) {
+  let len = arr.length
+  for (let i = 0; i < len; i++) {
+    let randomIdx = Math.floor(Math.random() * len)
+    let copyCurrent = {...arr[i]}
+    let copyRandom = {...arr[randomIdx]}
+    arr[i] = copyRandom
+    arr[randomIdx] = copyCurrent
+  }
+  return arr
+}
+
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: props.value, maxValue: props.maxValue, cards: props.cards, card: props.card, cardIndex: props.cardIndex}; //, onSubmit: props.onSubmit};
+    this.brucyBoardElement = React.createRef();
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    console.log('Card Position= ' +this.state.card.position+' CardIndex= '+this.state.cardIndex)
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSelectChange(event) {
+    this.setState({selectDirection: event.target.value});
+  }
+
+  handleSubmit(event) {
+    //{this.state.onSubmit()}
+    if(this.state.selectDirection != 'higher' && this.state.selectDirection != 'lower' ){
+      alert("The Higher/Lower Direction wasn't selected. Please choose a Direction");
+      return;
+    }
+    this.state.cardIndex++;
+    console.log('User selected Bet: '+this.state.value+ ' and Direction: '+this.state.selectDirection);
+    //console.log('Card Position= ' +this.state.card.position+' CardIndex= '+this.state.cardIndex)
+    this.brucyBoardElement.current.changeCardIndex(this.state.cardIndex);
+
+    event.preventDefault();
+  }
+
+  render() {  
+    return (
+      <div>
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          <div>Bet counters & Vote</div>
+          <input type="number" min="0" max={this.state.maxValue} value={this.state.value} onChange={this.handleChange} />
+        </label>
+
+        <select value={this.state.selectDirection} onChange={this.handleSelectChange} onLoad={this.handleSelectChange}>
+            <option value="higher">Higher</option>
+            <option value="lower">Lower</option>
+          </select>
+        <input type="submit" value="Submit" />
+      </form>
+      
+      <div className="BrucyBoard">
+        <BrucyBoard ref={this.brucyBoardElement} cards={this.state.cards} cardIndex={this.state.cardIndex} />
+          
+         {/*} <PlayingCard {...this.state.card}  key={this.state.card.id} /> */}
+          
+      </div>
+      </div>
+      
+
+      
+
+
+    );
+  }
+}

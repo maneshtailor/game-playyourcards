@@ -1,0 +1,17 @@
+.PlayingCard{
+  flex: 1;
+  width: 100px;
+  height: 150px;
+  padding: 5px;
+}
+
+
+.Example:hover{
+ cursor: pointer; 
+}
+
+
+.PlayingCard img{
+  width: 100px;
+  height: 150px;
+}
