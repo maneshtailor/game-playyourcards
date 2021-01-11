@@ -60,6 +60,29 @@ input[type=submit]:hover {
   text-align: center;
 }
 
+.modalEnd{
+  height: 150px;
+  width: 500px;
+  font-size: 20px;
+  line-height: 30px;
+  background-color: #1015A0;
+  color: #FFFFFF;
+  border: 4px groove #6D6D6D;
+  padding: 15px;
+  text-align: center;
+}
+
+.modalEnd{
+  height: 150px;
+  width: 500px;
+  font-size: 20px;
+  line-height: 30px;
+  background-color: #1015A0;
+  color: #FFFFFF;
+  border: 4px groove #6D6D6D;
+  padding: 15px;
+  text-align: center;
+}
 
 /* Style the header */
 .header {
@@ -68,3 +91,35 @@ input[type=submit]:hover {
   text-align: center;
   font-size: 35px;
 }
+
+
+.footerStyle {
+  margin-top: 1rem;
+  padding: 10px;
+  background-color: rgba(247, 247, 247, 0.925);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-size: 10px;
+  line-height: 20px;
+}
+
+.phantom {
+display: 'block';
+padding: '20px';
+height: '60px';
+width: '100%';
+}
+
+
+.grid-forFooter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0px 0px;
+}
+
+.MyNameFooter { text-align: center;}
+.GitHubFooter { text-align: left; }
+

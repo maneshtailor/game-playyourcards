@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import './App.css'
 import BrucyBoard from './components/BrucyBoard/BrucyBoard'
 import BankComponent from './components/Bank/BankComponent'
+import Popup from 'reactjs-popup';
 
 function App() {
   const cards = buildDeck(7);
@@ -24,7 +25,7 @@ function App() {
 
 
   return (
-    <div className="App" alig>
+    <div className="App">
 
       <div>
            <img src="assets/images/codingChallengeHeader.jpg" alt="CodingChallenge" height="200"/> 
@@ -48,6 +49,16 @@ function App() {
         <BrucyBoard ref={brucyBoardElement} cards={cards} cardIndex={cardIndex} /> 
         {/* onUpdate={this.onUpdate.bind(this)}  */}
       </div>
+      <div>
+            <div className="phantom" />
+            <div className="footerStyle">
+            <div class="grid-forFooter">
+            <div class="MyNameFooter">@maneshtailor</div>
+            <div class="GitHubFooter">
+            <img src="assets/images/GitHub-Mark-32px.png" alt="github" height="10"/> <a href='https://github.com/maneshtailor/game-playyourcards'> https://github.com/maneshtailor/game-playyourcards</a></div>
+            </div>
+            </div>
+        </div>
     </div>
     
   )
@@ -106,6 +117,11 @@ class NameForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+
+    this.modelOpen = false;
+    // const [open, setOpen] = useState(false);
+    // const 
     //console.log('Card Position= ' +this.state.card.position+' CardIndex= '+this.state.cardIndex)
   }
 
@@ -133,6 +149,7 @@ class NameForm extends React.Component {
       console.log('Current Card = '+currentCardPosition+' and Next card is = '+nextCardPosition);
       if(currentCardPosition == nextCardPosition){
         console.log("OH the cards are the same!");
+        
         //TODO Need go handle same card scenario 
       } else if (currentCardPosition < nextCardPosition){
         //Card is Higher than last 
@@ -168,6 +185,7 @@ class NameForm extends React.Component {
         }
       }
       
+      
 
 
       this.state.brucyBoardElement.current.changeCardIndex(this.state.cardIndex);
@@ -175,14 +193,48 @@ class NameForm extends React.Component {
       if(this.state.cardIndex == '6'){
         console.log("GAME OVER!");
         console.log("Your final score is "+this.state.bankBalance);
+        this.modelOpen = true;
       }
       
 
       this.state.maxValue = this.state.bankBalance;
+
+      if(this.state.bankBalance == '0'){
+        console.log("GAME OVER!");
+        console.log("Your final score is "+this.state.bankBalance);
+        this.modelOpen = true;
+      }
+
       this.forceUpdate();
 
       
     }
+  }
+
+  handleRetry(event) {
+    console.log("Play again");
+    window.location.reload(false);
+  }
+
+  getResultMessage(finalScore){
+    //Starting score = 10
+    //Highest Possible Score = 640 (doubling each time and all correct)
+    if(finalScore == 0){
+      return "Ouch!"
+    }else if (finalScore < 10) {
+      return "Too bad! You ended with less than you started with";
+    }else if (finalScore == 10){
+      return "Did you do anything?"
+    }else if (finalScore > 10 && finalScore < 200){
+      return "Good try. Nice Score";
+    }else if (finalScore >=200 && finalScore < 400){
+      return "WOW Great Score";
+    }else if (finalScore >=400 && finalScore < 640){
+      return "That is a lebgendary score. Well done!";
+    }else if(finalScore=='640'){
+      return "640?! Highest Possible Score Achieved!!!!";
+    }
+    return "Nice job";
   }
 
   render() {  
@@ -201,6 +253,20 @@ class NameForm extends React.Component {
           </select>
         <input type="submit" value="Submit" />
       </form>
+
+      <Popup open={this.modelOpen} closeOnDocumentClick={false}  position="center center">
+        <div className="modalEnd">
+
+          <div>{this.getResultMessage(this.state.maxValue)} </div>
+          <div>You got {this.state.maxValue} points.</div>
+          <div>What to play again?</div>
+          <form onSubmit={this.handleRetry}>
+          <input type="submit" value="Play Again" />
+        </form>
+
+
+        </div>
+      </Popup>
       
       </div>
       
