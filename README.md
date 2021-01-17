@@ -3,6 +3,16 @@ This is a game of Play your Cards right for fun and learning
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Rules of the game (One Player Game)
+At the start of the game, the player will be given 10 counters to start their game with. They are given/shown 1 random playing card from a full pack of a standard 52 card deck. They then have to choose whether they think the next card will be higher or lower than the card they were shown, plus they have to choose the number of counters which they want to bet.
+They can bet any number of counters up to the amount they have. BUT if they ever reach zero counters the game is over!
+The game will then show the player the second random card from the deck. If that card matched their guess, for example, it was higher and they guessed higher, they then get their counters back and the same number of counters on top, i.e. they double their bet. If they were wrong, then they lose their bet amount.
+The game continues with the player guessing again if the 3rd card will be higher or lower than the current card which was shown, and they bet a number of counters again.
+This cycle should repeat until a total of 7 cards have been shown to the player. At the 7th card being revealed the game ends and should show the player total counter score. (Assuming they didn’t lose already by getting to zero counters before this point).
+In this game Ace is a high card only and a repeated card doesn't cause you to win or loose on that card.
+The aim of the game is for the player to increase their 10 counters to as many as they can by betting counters and guessing correctly if the next card is higher or lower than the last card, with a total of 7 cards. If at any point they reach 0 counters - its game over!
+
+
 ## To run the game
 
 Ensure you have NodeJS installed on your machine. In the project directory, you can run:
