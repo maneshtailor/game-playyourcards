@@ -1,11 +1,11 @@
-## [INCOMPLETE PROJECT]
-This is is still in progress (10 JANUARY 2020)
+## Christmas Coding Challenge
+This is a game of Play your Cards right for fun and learning
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## To run the game
 
-In the project directory, you can run:
+Ensure you have NodeJS installed on your machine. In the project directory, you can run:
 
 ### `npm start`
 
